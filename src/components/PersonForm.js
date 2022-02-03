@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import personsService from '../services/persons'
 
 const Filter = (props) => {
     const [newName, setNewName] = useState('')
@@ -7,7 +8,6 @@ const Filter = (props) => {
     const addPerson = (event) => {
         event.preventDefault()
         const personObject = {
-            id: props.persons.length + 1,
             name: newName,
             number: newPhone,
         }
@@ -17,19 +17,23 @@ const Filter = (props) => {
         if(nameExist) {
             alert(`${newName} is already added to phonebook`)
         } else {
-            props.setPersons(() => props.persons.concat(personObject))
-            setNewName('')
-            setNewNumber('')
+            personsService
+                .create(personObject)
+                .then(returnedPerson => {
+                    props.setPersons(() => props.persons.concat(returnedPerson))
+                    setNewName('')
+                    setNewNumber('')
+                })
         }
     }
 
     const handlePersonChange = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setNewName(event.target.value)
     }
 
     const handleNumberChange = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setNewNumber(event.target.value)
     }
 
