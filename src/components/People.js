@@ -1,11 +1,11 @@
 import React from 'react'
 import Button from "./Button";
-import personsService from '../services/persons'
+import peopleService from '../services/people'
 
-const Persons = ({ persons, setPersons }) => {
+const People = ({ people, setPeople }) => {
     return (
         <div>
-            {persons.map((person, index) =>
+            {people.map((person, index) =>
                 <div key={index}>
                     <p>{person.name} {person.number}</p>
                     <Button text="delete" handleClick={deletePerson(person)} />
@@ -20,13 +20,13 @@ const Persons = ({ persons, setPersons }) => {
                  return;
              }
 
-            personsService
+            peopleService
                 .remove(deletedPerson.id)
                 .then(() => {
-                    setPersons(persons.filter(person => person.id !== deletedPerson.id))
+                    setPeople(people.filter(person => person.id !== deletedPerson.id))
                 })
         }
     }
 }
 
-export default Persons
+export default People

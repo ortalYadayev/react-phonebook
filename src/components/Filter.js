@@ -5,11 +5,11 @@ const Filter = (props) => {
 
     const searchPerson = (event) => {
         event.preventDefault()
-        const personsToShow = newSearch.length === 0
-            ? props.persons
-            : props.persons.filter(person => person.name === newSearch)
+        const peopleToShow = newSearch.length === 0
+            ? props.people
+            : props.people.filter(person => person.name === newSearch)
 
-        props.setPersons(() => personsToShow)
+        props.setPeople(() => peopleToShow)
         setNewSearch('')
     }
 

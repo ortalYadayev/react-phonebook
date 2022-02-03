@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import personsService from '../services/persons'
+import peopleService from '../services/people'
 
 const Filter = (props) => {
     const [newName, setNewName] = useState('')
@@ -12,7 +12,7 @@ const Filter = (props) => {
             number: newPhone,
         }
 
-        const personExist = props.persons.filter(person => person.name === newName)
+        const personExist = props.people.filter(person => person.name === newName)
 
         if(personExist.length !== 0) {
             if (!window.confirm(`${newName} is already added to phonebook, replace the old number with the new one?`)) {
@@ -21,18 +21,18 @@ const Filter = (props) => {
                 return;
             }
 
-            personsService
+            peopleService
                 .update(personExist[0].id, personObject)
                 .then(returnedPerson => {
-                    props.setPersons(props.persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
+                    props.setPeople(props.people.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
                     setNewName('')
                     setNewNumber('')
                 })
         } else {
-            personsService
+            peopleService
                 .create(personObject)
                 .then(returnedPerson => {
-                    props.setPersons(() => props.persons.concat(returnedPerson))
+                    props.setPeople(() => props.people.concat(returnedPerson))
                     setNewName('')
                     setNewNumber('')
                 })

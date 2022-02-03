@@ -1,5 +1,3 @@
-import personsService from "../services/persons";
-
 const Button = ({ text, handleClick }) => {
     return (
         <div>

@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react'
-import Persons from "./components/Persons";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
-import personService from './services/persons'
+import peopleService from './services/people'
+import People from "./components/People";
 
 const App = () => {
-    const [persons, setPersons] = useState([])
+    const [people, setPeople] = useState([])
 
     const hook = () => {
-        personService
+        peopleService
             .getAll()
             .then(init => {
-                setPersons(init)
+                setPeople(init)
             })
     }
 
@@ -20,11 +20,11 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
-            <Filter persons={persons} setPersons={setPersons} />
+            <Filter people={people} setPeople={setPeople} />
             <h2>Add a new Person</h2>
-            <PersonForm persons={persons} setPersons={setPersons} />
+            <PersonForm people={people} setPeople={setPeople} />
             <h2>Numbers</h2>
-            <Persons persons={persons} setPersons={setPersons} />
+            <People people={people} setPeople={setPeople} />
         </div>
     );
 }
