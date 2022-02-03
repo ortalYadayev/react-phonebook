@@ -12,10 +12,22 @@ const Filter = (props) => {
             number: newPhone,
         }
 
-        const nameExist = props.persons.some(person => person.name === newName)
+        const personExist = props.persons.filter(person => person.name === newName)
 
-        if(nameExist) {
-            alert(`${newName} is already added to phonebook`)
+        if(personExist.length !== 0) {
+            if (!window.confirm(`${newName} is already added to phonebook, replace the old number with the new one?`)) {
+                setNewName('')
+                setNewNumber('')
+                return;
+            }
+
+            personsService
+                .update(personExist[0].id, personObject)
+                .then(returnedPerson => {
+                    props.setPersons(props.persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
+                    setNewName('')
+                    setNewNumber('')
+                })
         } else {
             personsService
                 .create(personObject)

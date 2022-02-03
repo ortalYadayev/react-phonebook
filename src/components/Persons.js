@@ -8,22 +8,22 @@ const Persons = ({ persons, setPersons }) => {
             {persons.map((person, index) =>
                 <div key={index}>
                     <p>{person.name} {person.number}</p>
-                    <Button text="delete" handleClick={deletePerson(person.id)} />
+                    <Button text="delete" handleClick={deletePerson(person)} />
                 </div>
             )}
         </div>
     )
 
-    function deletePerson(id) {
+    function deletePerson(deletedPerson) {
          return () => {
-             if (!window.confirm("Do you really want to leave?")) {
+             if (!window.confirm(`Delete ${deletedPerson.name}?`)) {
                  return;
              }
 
             personsService
-                .remove(id)
+                .remove(deletedPerson.id)
                 .then(() => {
-                    setPersons(persons.filter(person => person.id !== id))
+                    setPersons(persons.filter(person => person.id !== deletedPerson.id))
                 })
         }
     }
