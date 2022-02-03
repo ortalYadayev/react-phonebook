@@ -2,16 +2,16 @@ import React, {useEffect, useState} from 'react'
 import Persons from "./components/Persons";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
-import instanceAxios from "./axios/axios";
+import personService from './services/persons'
 
 const App = () => {
     const [persons, setPersons] = useState([])
 
     const hook = () => {
-        instanceAxios
-            .get('/persons')
-            .then(response => {
-                setPersons(response.data)
+        personService
+            .getAll()
+            .then(init => {
+                setPersons(init)
             })
     }
 
